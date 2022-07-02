@@ -1,16 +1,17 @@
-# Project Title
+# Personal Weather Dashboard
 
-## Check out the [deployed app](https://lshillman.github.io/REPOSITORY-NAME/)
+## Check out the [live dashboard](https://lshillman.github.io/personal-weather-dashboard/)
 
-Description of project (also remember to add a blurb and the deployed link to the repo's "about" section)
+I like knowing the weather, and I dislike using Google (only half joking about that last part. A company with that much power shouldn't also control the WEATHER!). Anyway, I needed some practice with third-party APIs, so this seemed like a good idea at the time. Search for your city on the page, and your search history is saved in localStorage so you can easily come back to it later.
 
-What I did
 
 ## Technologies used:
 
 * HTML
 * CSS
 * JS
+* Bootstrap
+* OpenWeather One Call API
 
 
 ## Code snippet
@@ -33,10 +34,13 @@ Here are the layouts/functionality I was going for...
 
 ## Credits
 
-List collaborators and roles, and resources consulted:
+As always:
 https://www.w3.org/WAI/
+
+And what would I have done without OpenWeather's API documentation:
+
 
 
 ## License
 
-Talk to me if you want to use this.
+You are hereby granted no rights. Talk to me if you want to use this for something.
