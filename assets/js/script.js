@@ -1,9 +1,19 @@
-var requestUrl = 'http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=4cf13e749504309d50ec21fe5fae86a6';
-
 var testList = $('#testList');
 
-function getApi() {  
-    fetch(requestUrl)
+var citySearch = $('#citySearch');
+var searchBtn = $('#searchBtn');
+
+
+function getUserInput(e) {
+    e.preventDefault();
+    var requestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + citySearch.val() + '&APPID=4cf13e749504309d50ec21fe5fae86a6';
+    citySearch.val("");
+    getWeatherData(requestURL);
+}
+
+
+function getWeatherData(requestURL) {  
+    fetch(requestURL)
       .then(function (response) {
         return response.json();
       })
@@ -26,4 +36,4 @@ function getApi() {
       });
   }
 
-  getApi();
+  searchBtn.click(getUserInput);
