@@ -12,8 +12,8 @@ function getUserInput(e) {
     e.preventDefault();
     var requestLocURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + citySearch.val() + '&APPID=4cf13e749504309d50ec21fe5fae86a6';
     //var requestURL = 'http://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6';
-    searchHist.append('<li class="list-group-item">' + citySearch.val() + '</li>');
-    citySearch.val("");
+    // searchHist.append('<li class="list-group-item">' + citySearch.val() + '</li>');
+    // citySearch.val("");
     getLocation(requestLocURL);
 }
 
@@ -26,7 +26,14 @@ function getLocation(requestLocURL) {
       .then(function (data) {
         var requestWeatherURL = 'http://api.openweathermap.org/data/2.5/onecall?lat=' + data[0].lat + '&lon=' + data[0].lon + '&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6';
         console.log(data);
-        getWeatherData(requestWeatherURL);
+        if (data) {
+            cityName = data[0].name;
+            cityState = data[0].state;
+            cityCountry = data[0].country;
+            getWeatherData(requestWeatherURL);
+        } else {
+            console.log('you here for the weather, or are you just playin around?');
+        }
       })
       .catch(error => {
         console.log(error); // TODO handle this nicely
@@ -55,17 +62,25 @@ function getWeatherData(requestWeatherURL) {
           var name = document.createElement('li');
           var temperature = document.createElement('li');
           var humidity = document.createElement('li');
-          var conditions = document.createElement('li');
+          var wind = document.createElement('li');
           //Set the text of the list element to the JSON response's name property
-          name.textContent = 'Place: ' + data.name;
-          temperature.textContent = 'Temperature: ' + data.main.temp;
-          humidity.textContent = 'Humidity: ' + data.main.humidity;
-          conditions.textContent = 'Conditions: ' + data.weather[0].main;
+          if (cityState) {
+            name.textContent = 'Place: ' + cityName + ', ' + cityState + ', ' + cityCountry;
+            searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityState + ', ' + cityCountry + '</li>');
+            citySearch.val("");
+          } else {
+            name.textContent = 'Place: ' + cityName + ', ' + cityCountry;
+            searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityCountry + '</li>');
+            citySearch.val("");
+          }
+          temperature.textContent = 'Temperature: ' + data.current.temp + '°F';
+          humidity.textContent = 'Humidity: ' + data.current.humidity + '%';
+          wind.textContent = 'Wind: ' + data.current.wind_speed + ' MPH';
           //Append the li element to the id associated with the ul element.
-          weatherDataEl.append(name);
-          weatherDataEl.append(conditions);
-          weatherDataEl.append(temperature);
-          weatherDataEl.append(humidity);
+          weatherDataEl.prepend(name);
+          weatherDataEl.prepend(temperature);
+          weatherDataEl.prepend(wind);
+          weatherDataEl.prepend(humidity);
       })
       .catch(error => {
         console.log(error);
