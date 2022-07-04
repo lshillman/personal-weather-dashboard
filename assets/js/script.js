@@ -4,18 +4,49 @@ var weatherDataEl = $('#weatherData');
 var citySearch = $('#citySearch');
 var searchBtn = $('#searchBtn');
 
+var cityName;
+var cityState;
+var cityCountry;
 
 function getUserInput(e) {
     e.preventDefault();
-    var requestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + citySearch.val() + '&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6';
+    var requestLocURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + citySearch.val() + '&APPID=4cf13e749504309d50ec21fe5fae86a6';
+    //var requestURL = 'http://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6';
     searchHist.append('<li class="list-group-item">' + citySearch.val() + '</li>');
     citySearch.val("");
-    getWeatherData(requestURL);
+    getLocation(requestLocURL);
 }
 
 
-function getWeatherData(requestURL) {  
-    fetch(requestURL)
+function getLocation(requestLocURL) {  
+    fetch(requestLocURL)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        var requestWeatherURL = 'http://api.openweathermap.org/data/2.5/onecall?lat=' + data[0].lat + '&lon=' + data[0].lon + '&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6';
+        console.log(data);
+        getWeatherData(requestWeatherURL);
+      })
+      .catch(error => {
+        console.log(error); // TODO handle this nicely
+      });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getWeatherData(requestWeatherURL) {  
+    fetch(requestWeatherURL)
       .then(function (response) {
         return response.json();
       })
@@ -36,7 +67,9 @@ function getWeatherData(requestURL) {
           weatherDataEl.append(temperature);
           weatherDataEl.append(humidity);
       })
-      .catch(error => { console.log(error); });
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   searchBtn.click(getUserInput);
