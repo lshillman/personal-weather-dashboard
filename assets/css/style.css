@@ -1,7 +1,12 @@
 body {
-   /* background-color: aqua; */
+   background-color: #fafafa;
 }
 
 .container-fluid {
    max-width:1400px;
+}
+
+#searchHist li:hover {
+   background-color: #eeffff;
+   cursor: pointer;
 }

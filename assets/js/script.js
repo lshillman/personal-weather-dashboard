@@ -8,6 +8,8 @@ var cityName;
 var cityState;
 var cityCountry;
 
+var searchHistory = [];
+
 function getUserInput(e) {
     e.preventDefault();
     var requestLocURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + citySearch.val() + '&APPID=4cf13e749504309d50ec21fe5fae86a6';
@@ -66,11 +68,15 @@ function getWeatherData(requestWeatherURL) {
           //Set the text of the list element to the JSON response's name property
           if (cityState) {
             name.textContent = 'Place: ' + cityName + ', ' + cityState + ', ' + cityCountry;
-            searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityState + ', ' + cityCountry + '</li>');
+            // searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityState + ', ' + cityCountry + '</li>');
+            searchHistory.push(cityName + ', ' + cityState + ', ' + cityCountry);
+            addToSearchHistory();
             citySearch.val("");
           } else {
             name.textContent = 'Place: ' + cityName + ', ' + cityCountry;
-            searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityCountry + '</li>');
+            // searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityCountry + '</li>');
+            searchHistory.push(cityName + ', ' + cityCountry);
+            addToSearchHistory();
             citySearch.val("");
           }
           temperature.textContent = 'Temperature: ' + data.current.temp + '°F';
@@ -86,5 +92,18 @@ function getWeatherData(requestWeatherURL) {
         console.log(error);
       });
   }
+
+
+
+function addToSearchHistory () {
+    searchHist.html("");
+    for (i = 0; i < searchHistory.length; i++) {
+        searchHist.prepend('<li class="list-group-item">' + searchHistory[i] + '</li>');
+    }
+}
+
+
+
+
 
   searchBtn.click(getUserInput);
