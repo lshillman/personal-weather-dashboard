@@ -144,3 +144,7 @@ function init() {
 init();
 
   searchBtn.click(getUserInput);
+  searchHist.on("click", "li", function(e){
+      var url = 'http://api.openweathermap.org/geo/1.0/direct?q=' + e.target.textContent + '&APPID=4cf13e749504309d50ec21fe5fae86a6';
+      getLocation(url);
+  })
