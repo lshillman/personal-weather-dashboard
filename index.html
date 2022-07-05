@@ -10,7 +10,14 @@
     <title>Document</title>
 </head>
 <body>
-    <main class="container-fluid d-lg-flex">
+    <header>
+        <div class="card text-center">
+            <div class="card-body">
+              <h1 class="card-title">Weather</h1>
+            </div>
+          </div>
+    </header>
+    <main class="container-fluid mt-5 d-lg-flex">
     <aside class="col-lg-3">
         <form>
             <div class="form-group">
@@ -19,10 +26,15 @@
             </div>
             <button type="submit" class="btn btn-primary" id="searchBtn">Search</button>
         </form>
-        <ul class="list-group" id="searchHist"></ul>
+        <ul class="list-group mt-3" id="searchHist"></ul>
     </aside>
     <section class="col-lg-9">
-        <div class="card my-4"><h2>Place</h2><ul class="card-text list-group" id="weatherData"></ul></div>
+        <div class="card my-4">
+            <div class="card-body">
+                <h2 class="card-title">Place</h2>
+                <ul class="card-text list-group" id="weatherData"></ul>
+            </div>
+        </div>
         <div class="d-md-flex">
         <div class="card flex-fill mr-2 mb-2">
             <div class="card-body">
