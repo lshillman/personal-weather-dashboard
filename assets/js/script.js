@@ -70,13 +70,15 @@ function getWeatherData(requestWeatherURL) {
             name.textContent = 'Place: ' + cityName + ', ' + cityState + ', ' + cityCountry;
             // searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityState + ', ' + cityCountry + '</li>');
             searchHistory.push(cityName + ', ' + cityState + ', ' + cityCountry);
-            addToSearchHistory();
+            localStorage.setItem('searchHist', JSON.stringify(searchHistory));
+            renderSearchHistory();
             citySearch.val("");
           } else {
             name.textContent = 'Place: ' + cityName + ', ' + cityCountry;
             // searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityCountry + '</li>');
             searchHistory.push(cityName + ', ' + cityCountry);
-            addToSearchHistory();
+            localStorage.setItem('searchHist', JSON.stringify(searchHistory));
+            renderSearchHistory();
             citySearch.val("");
           }
           temperature.textContent = 'Temperature: ' + data.current.temp + '°F';
@@ -95,7 +97,7 @@ function getWeatherData(requestWeatherURL) {
 
 
 
-function addToSearchHistory () {
+function renderSearchHistory () {
     searchHist.html("");
     for (i = 0; i < searchHistory.length; i++) {
         searchHist.prepend('<li class="list-group-item">' + searchHistory[i] + '</li>');
@@ -103,7 +105,42 @@ function addToSearchHistory () {
 }
 
 
+function displayBerkeleyWeather() { // if there's no search history on pageload
+    fetch('http://api.openweathermap.org/data/2.5/onecall?lat=37.8708393&lon=-122.272863&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6')
+    .then(function (response) {
+        return response.json();
+      })
+    .then(function (data) {
+            console.log(data);
+          var name = document.createElement('li');
+          var temperature = document.createElement('li');
+          var humidity = document.createElement('li');
+          var wind = document.createElement('li');
+          //Set the text of the list element to the JSON response's name property
+          name.textContent = 'Place: Berkeley, California, US';
+          temperature.textContent = 'Temperature: ' + data.current.temp + '°F';
+          humidity.textContent = 'Humidity: ' + data.current.humidity + '%';
+          wind.textContent = 'Wind: ' + data.current.wind_speed + ' MPH';
+          //Append the li element to the id associated with the ul element.
+          weatherDataEl.prepend(name);
+          weatherDataEl.prepend(temperature);
+          weatherDataEl.prepend(wind);
+          weatherDataEl.prepend(humidity);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+}
 
+function init() {
+    if (localStorage.getItem('searchHist')) {
+        searchHistory = JSON.parse(localStorage.getItem('searchHist'));
+        renderSearchHistory();
+    } else {
+        displayBerkeleyWeather();
+    }
+}
 
+init();
 
   searchBtn.click(getUserInput);
