@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />-->
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Document</title>
+    <title>Luke's Weather Dashboard</title>
 </head>
 <body>
     <header>
@@ -31,8 +31,13 @@
     <section class="col-lg-9">
         <div class="card my-4">
             <div class="card-body">
-                <h2 class="card-title">Place</h2>
-                <ul class="card-text list-group" id="weatherData"></ul>
+                <h2 class="card-title" id="currentHeader">Place<img id="currentIcon" src="http://openweathermap.org/img/wn/10d@2x.png" /></h2>
+                <ul class="card-text list-group" id="weatherData">
+                    <li>Temp: <span id="currentTemp"></span></li>
+                    <li>Wind: <span id="currentWind"></span></li>
+                    <li>Humidity: <span id="currentHum"></span></li>
+                    <li>UV Index: <span id="currentUVI">0.47</span></li>
+                </ul>
             </div>
         </div>
         <div class="d-md-flex">

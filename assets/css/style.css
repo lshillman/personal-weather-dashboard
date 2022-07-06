@@ -10,3 +10,35 @@ body {
    background-color: #eeffff;
    cursor: pointer;
 }
+
+#weatherData {
+   list-style: none;
+}
+
+#weatherData li {
+   margin-bottom: 0.5rem;
+}
+
+#currentUVI {
+   padding: 0 1rem;
+   border-radius: 4px;
+}
+
+.favorable {
+   background-color: green;
+   color: #fff;
+}
+
+.moderate {
+   background-color: yellow;
+   color: #000;
+}
+
+.severe {
+   background-color: red;
+   color: #fff;
+}
+
+#currentIcon {
+   display:inline;
+}

@@ -10,6 +10,11 @@ var cityCountry;
 
 var searchHistory = [];
 
+var currentUVI = $('#currentUVI');
+
+
+
+
 function getUserInput(e) {
     e.preventDefault();
     var requestLocURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + citySearch.val() + '&APPID=4cf13e749504309d50ec21fe5fae86a6';
@@ -61,34 +66,47 @@ function getWeatherData(requestWeatherURL) {
       })
       .then(function (data) {
         console.log(data);
-          var name = document.createElement('li');
-          var temperature = document.createElement('li');
-          var humidity = document.createElement('li');
-          var wind = document.createElement('li');
+        //   var name = document.createElement('li');
+        //   var temperature = document.createElement('li');
+        //   var humidity = document.createElement('li');
+        //   var wind = document.createElement('li');
           //Set the text of the list element to the JSON response's name property
           if (cityState) {
-            name.textContent = 'Place: ' + cityName + ', ' + cityState + ', ' + cityCountry;
+            $('#currentHeader').html(cityName + ', ' + cityState + ', ' + cityCountry + " (" + moment().format("MM/DD/YYYY") + ") <img id='currentIcon' src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png' />");
             // searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityState + ', ' + cityCountry + '</li>');
             searchHistory.push(cityName + ', ' + cityState + ', ' + cityCountry);
             localStorage.setItem('searchHist', JSON.stringify(searchHistory));
             renderSearchHistory();
             citySearch.val("");
           } else {
-            name.textContent = 'Place: ' + cityName + ', ' + cityCountry;
+            $('#currentHeader').text(cityName + ', ' + cityCountry + " (" + moment().format("MM/DD/YYYY") + ") <img id='currentIcon' src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png' />");
             // searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityCountry + '</li>');
             searchHistory.push(cityName + ', ' + cityCountry);
             localStorage.setItem('searchHist', JSON.stringify(searchHistory));
             renderSearchHistory();
             citySearch.val("");
           }
-          temperature.textContent = 'Temperature: ' + data.current.temp + '°F';
-          humidity.textContent = 'Humidity: ' + data.current.humidity + '%';
-          wind.textContent = 'Wind: ' + data.current.wind_speed + ' MPH';
-          //Append the li element to the id associated with the ul element.
-          weatherDataEl.prepend(name);
-          weatherDataEl.prepend(temperature);
-          weatherDataEl.prepend(wind);
-          weatherDataEl.prepend(humidity);
+        //   temperature.textContent = 'Temperature: ' + data.current.temp + '°F';
+        //   humidity.textContent = 'Humidity: ' + data.current.humidity + '%';
+        //   wind.textContent = 'Wind: ' + data.current.wind_speed + ' MPH';
+        //   //Append the li element to the id associated with the ul element.
+        //   weatherDataEl.prepend(name);
+        //   weatherDataEl.prepend(temperature);
+        //   weatherDataEl.prepend(wind);
+        //   weatherDataEl.prepend(humidity);
+        
+            $('#currentUVI').html(data.current.uvi);
+            $('#currentUVI').removeClass('favorable moderate severe'); // remove all classes before applying one below
+            if (data.current.uvi > 6) {
+                $('#currentUVI').addClass('severe');
+            } else if (data.current.uvi > 2) {
+                $('#currentUVI').addClass('moderate');
+            } else {
+                $('#currentUVI').addClass('favorable');
+            }
+
+            console.log(moment.unix(data.daily[0].dt).format("MM/DD/YYYY"));
+        
       })
       .catch(error => {
         console.log(error);
