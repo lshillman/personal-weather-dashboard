@@ -12,6 +12,7 @@ var searchHistory = [];
 
 var currentUVI = $('#currentUVI');
 
+var iconBase = 'https://openweathermap.org/img/wn/';
 
 
 
@@ -99,7 +100,41 @@ function getWeatherData(requestWeatherURL) {
             }
 
             console.log(moment.unix(data.daily[0].dt).format("MM/DD/YYYY"));
+
+            // TODO redo this with a loop instead of doing it all manually >_<
+
+            $('#day1date').html(moment.unix(data.daily[1].dt).format("MM/DD/YYYY"));
+            $('#day1icon').attr("src", iconBase + data.daily[1].weather[0].icon + '.png');
+            $('#day1temp').html('Temp: ' + data.daily[1].temp.max + '°F');
+            $('#day1wind').html('Wind: ' + data.daily[1].wind_speed + ' MPH');
+            $('#day1hum').html('Humidity: ' + data.daily[1].humidity + '%');
         
+            $('#day2date').html(moment.unix(data.daily[2].dt).format("MM/DD/YYYY"));
+            $('#day2icon').attr("src", iconBase + data.daily[2].weather[0].icon + '.png');
+            $('#day2temp').html('Temp: ' + data.daily[2].temp.max + '°F');
+            $('#day2wind').html('Wind: ' + data.daily[2].wind_speed + ' MPH');
+            $('#day2hum').html('Humidity: ' + data.daily[2].humidity + '%');
+        
+            $('#day3date').html(moment.unix(data.daily[3].dt).format("MM/DD/YYYY"));
+            $('#day3icon').attr("src", iconBase + data.daily[3].weather[0].icon + '.png');
+            $('#day3temp').html('Temp: ' + data.daily[3].temp.max + '°F');
+            $('#day3wind').html('Wind: ' + data.daily[3].wind_speed + ' MPH');
+            $('#day3hum').html('Humidity: ' + data.daily[3].humidity + '%');
+
+            $('#day4date').html(moment.unix(data.daily[4].dt).format("MM/DD/YYYY"));
+            $('#day4icon').attr("src", iconBase + data.daily[4].weather[0].icon + '.png');
+            $('#day4temp').html('Temp: ' + data.daily[4].temp.max + '°F');
+            $('#day4wind').html('Wind: ' + data.daily[4].wind_speed + ' MPH');
+            $('#day4hum').html('Humidity: ' + data.daily[4].humidity + '%');
+
+            $('#day5date').html(moment.unix(data.daily[5].dt).format("MM/DD/YYYY"));
+            $('#day5icon').attr("src", iconBase + data.daily[5].weather[0].icon + '.png');
+            $('#day5temp').html('Temp: ' + data.daily[5].temp.max + '°F');
+            $('#day5wind').html('Wind: ' + data.daily[5].wind_speed + ' MPH');
+            $('#day5hum').html('Humidity: ' + data.daily[5].humidity + '%');
+
+
+
       })
       .catch(error => {
         console.log(error);
