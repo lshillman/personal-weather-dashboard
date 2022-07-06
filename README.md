@@ -35,6 +35,7 @@ displayWeatherData(data);
 
 Here's a little clip of searching for locations and revisiting places in the search history:
 
+https://user-images.githubusercontent.com/5232938/177469012-a42ea20c-8971-428d-abf7-bb2264a18ba7.mov
 
 
 ## Credits
