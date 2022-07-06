@@ -17,7 +17,7 @@ var currentUVI = $('#currentUVI');
 
 function getUserInput(e) {
     e.preventDefault();
-    var requestLocURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + citySearch.val() + '&APPID=4cf13e749504309d50ec21fe5fae86a6';
+    var requestLocURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + citySearch.val() + '&APPID=4cf13e749504309d50ec21fe5fae86a6';
     //var requestURL = 'http://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6';
     // searchHist.append('<li class="list-group-item">' + citySearch.val() + '</li>');
     // citySearch.val("");
@@ -31,7 +31,7 @@ function getLocation(requestLocURL) {
         return response.json();
       })
       .then(function (data) {
-        var requestWeatherURL = 'http://api.openweathermap.org/data/2.5/onecall?lat=' + data[0].lat + '&lon=' + data[0].lon + '&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6';
+        var requestWeatherURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + data[0].lat + '&lon=' + data[0].lon + '&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6';
         console.log(data);
         if (data) {
             cityName = data[0].name;
@@ -66,11 +66,7 @@ function getWeatherData(requestWeatherURL) {
       })
       .then(function (data) {
         console.log(data);
-        //   var name = document.createElement('li');
-        //   var temperature = document.createElement('li');
-        //   var humidity = document.createElement('li');
-        //   var wind = document.createElement('li');
-          //Set the text of the list element to the JSON response's name property
+
           if (cityState) {
             $('#currentHeader').html(cityName + ', ' + cityState + ', ' + cityCountry + " (" + moment().format("MM/DD/YYYY") + ") <img id='currentIcon' src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png' />");
             // searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityState + ', ' + cityCountry + '</li>');
@@ -86,14 +82,7 @@ function getWeatherData(requestWeatherURL) {
             renderSearchHistory();
             citySearch.val("");
           }
-        //   temperature.textContent = 'Temperature: ' + data.current.temp + '°F';
-        //   humidity.textContent = 'Humidity: ' + data.current.humidity + '%';
-        //   wind.textContent = 'Wind: ' + data.current.wind_speed + ' MPH';
-        //   //Append the li element to the id associated with the ul element.
-        //   weatherDataEl.prepend(name);
-        //   weatherDataEl.prepend(temperature);
-        //   weatherDataEl.prepend(wind);
-        //   weatherDataEl.prepend(humidity);
+
 
             $('#currentTemp').text(data.current.temp + '°F');
             $('#currentWind').text(data.current.wind_speed + 'MPH');
@@ -128,7 +117,7 @@ function renderSearchHistory () {
 
 
 function displayBerkeleyWeather() { // if there's no search history on pageload
-    fetch('http://api.openweathermap.org/data/2.5/onecall?lat=37.8708393&lon=-122.272863&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6')
+    fetch('https://api.openweathermap.org/data/2.5/onecall?lat=37.8708393&lon=-122.272863&units=imperial&APPID=4cf13e749504309d50ec21fe5fae86a6')
     .then(function (response) {
         return response.json();
       })
@@ -167,6 +156,6 @@ init();
 
   searchBtn.click(getUserInput);
   searchHist.on("click", "li", function(e){
-      var url = 'http://api.openweathermap.org/geo/1.0/direct?q=' + e.target.textContent + '&APPID=4cf13e749504309d50ec21fe5fae86a6';
+      var url = 'https://api.openweathermap.org/geo/1.0/direct?q=' + e.target.textContent + '&APPID=4cf13e749504309d50ec21fe5fae86a6';
       getLocation(url);
   })
