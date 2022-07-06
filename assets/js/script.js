@@ -68,14 +68,14 @@ function getWeatherData(requestWeatherURL) {
         console.log(data);
 
           if (cityState) {
-            $('#currentHeader').html(cityName + ', ' + cityState + ', ' + cityCountry + " (" + moment().format("MM/DD/YYYY") + ") <img id='currentIcon' src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png' />");
+            $('#currentHeader').html(cityName + ', ' + cityState + ', ' + cityCountry + " (" + moment().format("MM/DD/YYYY") + ") <img id='currentIcon' src='https://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png' />");
             // searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityState + ', ' + cityCountry + '</li>');
             searchHistory.push(cityName + ', ' + cityState + ', ' + cityCountry);
             localStorage.setItem('searchHist', JSON.stringify(searchHistory));
             renderSearchHistory();
             citySearch.val("");
           } else {
-            $('#currentHeader').text(cityName + ', ' + cityCountry + " (" + moment().format("MM/DD/YYYY") + ") <img id='currentIcon' src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png' />");
+            $('#currentHeader').text(cityName + ', ' + cityCountry + " (" + moment().format("MM/DD/YYYY") + ") <img id='currentIcon' src='https://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png' />");
             // searchHist.prepend('<li class="list-group-item">' + cityName + ', ' + cityCountry + '</li>');
             searchHistory.push(cityName + ', ' + cityCountry);
             localStorage.setItem('searchHist', JSON.stringify(searchHistory));
