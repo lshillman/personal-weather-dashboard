@@ -94,6 +94,10 @@ function getWeatherData(requestWeatherURL) {
         //   weatherDataEl.prepend(temperature);
         //   weatherDataEl.prepend(wind);
         //   weatherDataEl.prepend(humidity);
+
+            $('#currentTemp').text(data.current.temp + '°F');
+            $('#currentWind').text(data.current.wind_speed + 'MPH');
+            $('#currentHum').text(data.current.humidity + '%');
         
             $('#currentUVI').html(data.current.uvi);
             $('#currentUVI').removeClass('favorable moderate severe'); // remove all classes before applying one below
